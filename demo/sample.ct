@@ -1,0 +1,2 @@
+0 0 0 0 0 root date
+0 * * * * jsmith ls /home
