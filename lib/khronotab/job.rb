@@ -27,7 +27,7 @@ class Job < Hash
             range = segment.split('-').map! { |x| x.to_i }
             values.concat((range[0] .. range[1]).to_a)
           when /\// #interval
-            count = 0
+            counter = 0
             interval = segment.split('/').map! { |x|
               if x == '*'
                 x = data_type.maximum
@@ -35,14 +35,17 @@ class Job < Hash
                 x.to_i
               end
             }
-            values.push(count += interval[1]) while count < interval[0]
+            while counter < interval[0]
+              values.push(counter)
+              counter += interval[1]
+            end
           when /[*]/
             values.concat((data_type.minimum .. data_type.maximum).to_a)
           else
             values << segment.to_i
         end
       end
-    return values
+    return values.sort.uniq
   end
 
   def runs_on?(date_to_check)
