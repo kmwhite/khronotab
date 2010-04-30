@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{khronotab}
-  s.version = "0.5.0"
+  s.version = "0.7.5"
   s.date = %q{2010-04-26}
   s.authors = ["Kristofer M White"]
   s.email = %q{me@kmwhite.net}
