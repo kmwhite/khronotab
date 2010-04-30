@@ -4,7 +4,7 @@ class JobList < Array
 
   def add_new(cron_entry)
     minute, hour, dom, month, dow, user, command = cron_entry.scan(
-        %r{^\s*(\d{1,2}|[*]|[-\/,])+\s+(\d{1,2}|[*]|[-\/,])+\s+(\d{1,2}|[*]|[-\/,])+\s+(\d{1,2}|[*]|[-\/,])+\s+(\d{1,2}|[*]|[-\/,])+\s+(\w+)\s+(.+)}).shift
+        /([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+(\S+)\s+(.+)/).shift
     self << ::Job.new(
               :minutes => minute,
               :hours => hour,

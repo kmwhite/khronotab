@@ -4,16 +4,16 @@ class Job < Hash
   require 'khronotab/crontypes'
 
   def initialize(data)
-    self[:minutes] = convert_field(data[:minutes], Minutes.new)
-    self[:hours] = convert_field(data[:hours], Hours.new)
-    self[:days_of_month] = convert_field(data[:days_of_month], DaysOfMonth.new)
-    self[:month] = convert_field(data[:month], Months.new)
-    self[:days_of_week] = convert_field(data[:days_of_week], DaysOfWeek.new)
+    self[:minutes] = expand_field(data[:minutes], Minutes.new)
+    self[:hours] = expand_field(data[:hours], Hours.new)
+    self[:days_of_month] = expand_field(data[:days_of_month], DaysOfMonth.new)
+    self[:month] = expand_field(data[:month], Months.new)
+    self[:days_of_week] = expand_field(data[:days_of_week], DaysOfWeek.new)
     self[:user] = data[:user]
     self[:command] = data[:command]
   end
 
-  def convert_field(cron_data, data_type)
+  def expand_field(cron_data, data_type)
     #---------------------------------------------------------
     # The data_type.new will have the max and min for that type
     #--------------------------------------------------------
@@ -39,7 +39,7 @@ class Job < Hash
           when /[*]/
             values.concat((data_type.minimum .. data_type.maximum).to_a)
           else
-            values << segment
+            values << segment.to_i
         end
       end
     return values
