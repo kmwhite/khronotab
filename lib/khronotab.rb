@@ -6,7 +6,7 @@ module Khronotab
     require 'khronotab/joblist'
     require 'khronotab/variablelist'
 
-    VERSION = '0.7.5'
+    VERSION = '1.0.0'
     attr_accessor :jobs, :variables
 
     def read_from_file(filename)

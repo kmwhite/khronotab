@@ -8,7 +8,7 @@ class CronUnit
   end
 
   def contains?(value)
-    expanded_form.includes?(value)
+    expanded_form.include?(value)
   end
 
   def expanded_form
@@ -41,7 +41,7 @@ class CronUnit
   end
 
   def to_s
-    puts @cron_form
+    @cron_form
   end
 
 end

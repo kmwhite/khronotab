@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = %q{khronotab}
-  s.version = "0.7.5"
-  s.date = %q{2010-04-26}
+  s.version = "1.0.0"
+  s.date = %q{2010-05-07}
   s.authors = ["Kristofer M White"]
   s.email = %q{me@kmwhite.net}
   s.summary = %q{A pure ruby crontab parser}
