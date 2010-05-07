@@ -1,69 +1,29 @@
 require 'time'
 
 class Job < Hash
-  require 'khronotab/crontypes'
+  require 'khronotab/cronunit'
 
   def initialize(data)
-    self[:minutes] = data[:minutes]
-    self[:hours] = data[:hours]
-    self[:days_of_month] = data[:days_of_month]
-    self[:month] = data[:month]
-    self[:days_of_week] = data[:days_of_week]
+    self[:minutes] = CronUnit.new(data[:minutes], 0, 59)
+    self[:hours] = CronUnit.new(data[:hours], 0, 23)
+    self[:days_of_month] = CronUnit.new(data[:days_of_month], 1, 31)
+    self[:month] = CronUnit.new(data[:month], 1, 12)
+    self[:days_of_week] = CronUnit.new(data[:days_of_week], 0, 7)
     self[:user] = data[:user]
     self[:command] = data[:command]
   end
 
-  def expand_field(cron_data, data_type)
-    #---------------------------------------------------------
-    # The data_type.new will have the max and min for that type
-    #--------------------------------------------------------
-    #return an array composed of all the valid fields values
-    #so that self[:field_name].include[value] will return true
-    #as a check to if the value runs today
-    values = Array.new
-    cron_data.split(',').each do |segment|
-      case segment
-        when /-/ #range
-          range = segment.split('-').map! { |x| x.to_i }
-          values.concat((range[0] .. range[1]).to_a)
-        when /\// #interval
-          counter = 0
-          interval = segment.split('/').map! { |x|
-            if x == '*'
-              x = data_type.maximum
-            else
-              x.to_i
-            end
-          }
-          while counter < interval[0]
-            values.push(counter)
-            counter += interval[1]
-          end
-        when /[*]/
-          values.concat((data_type.minimum .. data_type.maximum).to_a)
-        else
-          values << segment.to_i
-      end
-    end
-    return values.sort.uniq
-  end
-
   def runs_on?(date_to_check)
-    expand_field(self[:month], Months.new).include?(date_to_check.month) &&
-    expand_field(self[:days_of_month], DaysOfMonth.new).include?(date_to_check.day) &&
-    expand_field(self[:days_of_week], DaysOfWeek.new).include?(date_to_check.wday)
+    self[:month].contains?(date_to_check.month) &&
+    self[:days_of_month].contains?(date_to_check.day) &&
+    self[:days_of_week].contains?(date_to_check.wday)
   end
 
   def runs_today?
     runs_on?(Time.now)
   end
 
-#  def runs_now?
-#    runs_today? &&
-#    expand_field(self[:hours], Hours.new).include?()
-#    expand_field(self[:minutes], Minutes.new).include?()
-#  end
-
+  # Commenting out. Need to write still. --kmwhite 2010-05-06
   #def to_s
   #  puts "<Job name: %s, value: '%s' >" % [ self[:name], self[:value] ]
   #end
