@@ -1,29 +1,35 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-
+require 'khronotab/variable'
+require 'khronotab/job'
 module Khronotab
   class CronTab
-    require 'khronotab/joblist'
-    require 'khronotab/variablelist'
 
     VERSION = '1.0.0'
-    attr_accessor :jobs, :variables
+    attr_accessor :jobs, :variables, :job_instance_class
+    def initialize opt={}
+      self.job_instance_class = opt[:job_instance_class] if opt[:job_instance_class] 
+      self.read_from_file(opt[:file]) if opt[:file] 
+    end
+    def self.read_from_file(*args)
+      self.new.read_from_file(*args)
+    end
+    def import_line(line)
 
+    end 
     def read_from_file(filename)
-      @variables ||= ::VariableList.new
-      @jobs ||= ::JobList.new
-      File.open(filename, 'r').readlines.each do |line|
-        case line
-          when %r{^\s*[^#]\w+=.+}i
-            @variables.add_new(line)
-          when %r{^\s*[^#]((\d{1,2}|[*]|[-\/,])+|\s+){5}\S+\s+.+}i
-            @jobs.add_new(line) 
-            next
+      @variables ||= []
+      @jobs ||=[]
+       File.open(filename, 'r').readlines.each do |line|
+          if Variable.matches?(line)
+            @variables << Variable.add_new(line) 
+          elsif Job.matches?(line)
+            @jobs << Job.add_new(line,self.job_instance_class) 
           else
-            #STDERR.puts("Line is neither a Job or a Definition.\n\t#{line}")
-            next
-        end
+            STDERR.puts "WTF IS THIS: #{line}"
+          end
       end
+      self
     end
 
     def write_to_file(filename)
