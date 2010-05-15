@@ -1,22 +1,24 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-require 'khronotab/variable'
-require 'khronotab/job'
 module Khronotab
   class CronTab
 
+    require 'khronotab/variable'
+    require 'khronotab/job'
+
     VERSION = '1.0.0'
+
     attr_accessor :jobs, :variables, :job_instance_class
+
     def initialize opt={}
       self.job_instance_class = opt[:job_instance_class] if opt[:job_instance_class] 
       self.read_from_file(opt[:file]) if opt[:file] 
     end
+
     def self.read_from_file(*args)
       self.new.read_from_file(*args)
     end
-    def import_line(line)
 
-    end 
     def read_from_file(filename)
       @variables ||= []
       @jobs ||=[]
@@ -24,9 +26,9 @@ module Khronotab
           if Variable.matches?(line)
             @variables << Variable.add_new(line) 
           elsif Job.matches?(line)
-            @jobs << Job.add_new(line,self.job_instance_class) 
+            @jobs << Job.add_new(line, self.job_instance_class) 
           else
-            STDERR.puts "WTF IS THIS: #{line}"
+            STDERR.puts("Warning: Line is not a valid variable or job!")
           end
       end
       self

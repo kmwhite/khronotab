@@ -1,6 +1,3 @@
-require 'time'
-
-
 class JobInstance
   attr_accessor :time, :command
   def initialize(itime,cmd)
