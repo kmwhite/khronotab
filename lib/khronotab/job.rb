@@ -61,14 +61,14 @@ class Job
   end
 
   def initialize(data)
-    self.job_instance_class = data[:job_instance_class]
-    self.minutes = CronUnit.new(data[:minutes], 0, 59)
-    self.hours = CronUnit.new(data[:hours], 0, 23)
-    self.days_of_month = CronUnit.new(data[:days_of_month], 1, 31)
-    self.month = CronUnit.new(data[:month], 1, 12)
-    self.days_of_week = CronUnit.new(data[:days_of_week], 0, 7)
-    self.user = data[:user]
-    self.command = data[:command]
+    @minutes = CronUnit.new(data[:minutes], 0, 59)
+    @hours = CronUnit.new(data[:hours], 0, 23)
+    @days_of_month = CronUnit.new(data[:days_of_month], 1, 31)
+    @month = CronUnit.new(data[:month], 1, 12)
+    @days_of_week = CronUnit.new(data[:days_of_week], 0, 7)
+    @user = data[:user]
+    @command = data[:command]
+    @job_instance_class = data[:job_instance_class]
   end
 
   def runs_on?(date_to_check)

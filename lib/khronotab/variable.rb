@@ -25,8 +25,8 @@ class Variable < Hash
   end
 
   def initialize(data)
-    name = data[:name]
-    value = data[:value]
+    @name = data[:name]
+    @value = data[:value]
   end
 
   def to_s
