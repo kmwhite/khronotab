@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{khronotab}
-  s.version = "0.0.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristofer M White"]
-  s.date = %q{2010-06-23}
-  s.description = %q{A pure ruby cron parser with a hash-like syntax}
+  s.date = %q{2010-06-24}
+  s.description = %q{A pure ruby interface to cron with a hash-like syntax}
   s.email = %q{me@kmwhite.net}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "demo/sample.ct",
      "demo/sample.rb",
+     "khronotab.gemspec",
      "lib/khronotab.rb",
      "lib/khronotab/cronunit.rb",
      "lib/khronotab/job.rb",
@@ -34,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/kmwhite/khronotab}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{khronotab}
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A pure ruby cron parser}
+
 end
