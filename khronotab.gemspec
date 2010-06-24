@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristofer M White"]
   s.date = %q{2010-06-23}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{A pure ruby cron parser with a hash-like syntax}
   s.email = %q{me@kmwhite.net}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -36,9 +36,4 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A pure ruby cron parser}
-
-  if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 3
-  end
 end
