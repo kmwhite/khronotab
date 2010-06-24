@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/kmwhite/khronotab}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubyforge_project = %q{khronotab}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{A pure ruby cron parser}
 end
