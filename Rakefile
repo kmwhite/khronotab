@@ -6,11 +6,11 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "khronotab"
     gem.summary = %Q{A pure ruby cron parser}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{A pure ruby cron parser with a hash-like interface}
     gem.email = "me@kmwhite.net"
     gem.homepage = "http://github.com/kmwhite/khronotab"
     gem.authors = ["Kristofer M White"]
-    gem.add_development_dependency "thoughtbot-shoulda"
+    gem.rubyforge_project = %q{khronotab}
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
