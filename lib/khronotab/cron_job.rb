@@ -23,7 +23,7 @@ class CronJob
     return nil unless JOB_REGEX.match(cron_entry)
     minute, hour, dom, month, dow, user, command =
          cron_entry.scan(JOB_REGEX).shift
-    ::Job.new(
+    ::CronJob.new(
               :minutes => minute,
               :hours => hour,
               :days_of_month => dom,
