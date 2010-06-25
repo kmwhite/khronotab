@@ -3,8 +3,8 @@ $:.unshift(File.dirname(__FILE__)) unless
 module Khronotab
   class CronTab
 
-    require 'khronotab/variable'
-    require 'khronotab/job'
+    require 'khronotab/cron_variable'
+    require 'khronotab/cron_job'
 
     VERSION = '1.0.0'
 
@@ -23,10 +23,10 @@ module Khronotab
       @variables ||= []
       @jobs ||=[]
        File.open(filename, 'r').readlines.each do |line|
-          if Variable.matches?(line)
-            @variables << Variable.add_new(line) 
-          elsif Job.matches?(line)
-            @jobs << Job.add_new(line, self.job_instance_class) 
+          if CronVariable.matches?(line)
+            @variables << CronVariable.add_new(line) 
+          elsif CronJob.matches?(line)
+            @jobs << CronJob.add_new(line, self.job_instance_class) 
           else
             STDERR.puts("Warning: Line is not a valid variable or job!")
           end

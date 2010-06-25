@@ -1,4 +1,4 @@
-class JobInstance
+class CronJobInstance
   attr_accessor :time, :command
   def initialize(itime,cmd)
     self.time=itime
@@ -6,7 +6,7 @@ class JobInstance
   end
     
 end
-class CnuCronJobInstance < JobInstance
+class CnuCronJobInstance < CronJobInstance
   CLUSTERS={
     :uk => /CNU_GB/,
     :us => /CNU_US/,

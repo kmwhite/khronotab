@@ -1,4 +1,4 @@
-class Variable < Hash
+class CronVariable < Hash
 
   attr_accessor :name, :value
 

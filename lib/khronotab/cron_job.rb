@@ -1,17 +1,17 @@
 require 'time'
 require 'date'
-require 'khronotab/job_instance'
-require 'khronotab/cronunit'
+require 'khronotab/cron_job_instance'
+require 'khronotab/cron_unit'
 
 
-class Job
+class CronJob
 
   attr_accessor :minutes, :hours, :days, :month, :days_of_week, :user, :command, :days_of_month, :job_instance_class
 
   JOB_REGEX=/([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+(\S+)\s+(.+)/
 
   def job_instance_class
-    @job_instance_class ||= JobInstance
+    @job_instance_class ||= CronJobInstance
   end
 
   def self.matches?(ce)
