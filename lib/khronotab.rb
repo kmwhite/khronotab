@@ -8,10 +8,9 @@ module Khronotab
 
     VERSION = '1.0.0'
 
-    attr_accessor :jobs, :variables, :job_instance_class
+    attr_accessor :jobs, :variables
 
     def initialize opt={}
-      self.job_instance_class = opt[:job_instance_class] if opt[:job_instance_class] 
       self.read_from_file(opt[:file]) if opt[:file] 
     end
 
@@ -26,7 +25,7 @@ module Khronotab
           if CronVariable.matches?(line)
             @variables << CronVariable.add_new(line) 
           elsif CronJob.matches?(line)
-            @jobs << CronJob.add_new(line, self.job_instance_class) 
+            @jobs << CronJob.add_new(line)
           else
             STDERR.puts("Warning: Line is not a valid variable or job!")
           end

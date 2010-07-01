@@ -1,25 +1,20 @@
 require 'time'
 require 'date'
-require 'khronotab/cron_job_instance'
 require 'khronotab/cron_unit'
 
 
 class CronJob
 
-  attr_accessor :minutes, :hours, :days, :month, :days_of_week, :user, :command, :days_of_month, :job_instance_class
+  attr_accessor :minutes, :hours, :days, :month, :days_of_week, :user, :command, :days_of_month
 
   JOB_REGEX=/([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+([0-9\*\/\-,]+)\s+(\S+)\s+(.+)/
-
-  def job_instance_class
-    @job_instance_class ||= CronJobInstance
-  end
 
   def self.matches?(ce)
     return false if ce=~/^[\s]*$/ or ce=~/^\s*#/
     !!JOB_REGEX.match(ce)
   end
     
-  def self.add_new(cron_entry, job_instance_class=nil)
+  def self.add_new(cron_entry)
     return nil unless JOB_REGEX.match(cron_entry)
     minute, hour, dom, month, dow, user, command =
          cron_entry.scan(JOB_REGEX).shift
@@ -30,8 +25,7 @@ class CronJob
               :month => month,
               :days_of_week => dow,
               :user => user,
-              :command => command,
-              :job_instance_class => job_instance_class 
+              :command => command
             )
   end
 
@@ -53,7 +47,7 @@ class CronJob
       hours.expanded_form.map do |hour|
         minutes.expanded_form.map do |minute|
           date_string = "%02i-%02i-%02i %02i:%02i:%02i" % [d.year, d.month, d.day, hour, minute, 0]
-          job_instance_class.new(Time.parse(date_string), self.command)
+          [date_string, self.command]
         end
       end
     
@@ -68,7 +62,6 @@ class CronJob
     @days_of_week = CronUnit.new(data[:days_of_week], 0, 7)
     @user = data[:user]
     @command = data[:command]
-    @job_instance_class = data[:job_instance_class]
   end
 
   def runs_on?(date_to_check)
