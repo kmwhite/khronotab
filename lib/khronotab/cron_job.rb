@@ -44,13 +44,13 @@ class CronJob
     when :day 
       d=Date.today
       return [] unless runs_today?
+      time_list = []
       hours.expanded_form.map do |hour|
         minutes.expanded_form.map do |minute|
-          date_string = "%02i-%02i-%02i %02i:%02i:%02i" % [d.year, d.month, d.day, hour, minute, 0]
-          [date_string, self.command]
+          time_list << "%02i-%02i-%02i %02i:%02i:%02i" % [d.year, d.month, d.day, hour, minute, 0]
         end
       end
-    
+      return time_list
     end 
   end
 

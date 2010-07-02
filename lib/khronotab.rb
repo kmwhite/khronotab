@@ -6,7 +6,7 @@ module Khronotab
     require 'khronotab/cron_variable'
     require 'khronotab/cron_job'
 
-    VERSION = '1.0.0'
+    VERSION = '1.3.1'
 
     attr_accessor :jobs, :variables
 
@@ -20,7 +20,7 @@ module Khronotab
 
     def read_from_file(filename)
       @variables ||= []
-      @jobs ||=[]
+      @jobs ||= []
        File.open(filename, 'r').readlines.each do |line|
           if CronVariable.matches?(line)
             @variables << CronVariable.add_new(line) 
