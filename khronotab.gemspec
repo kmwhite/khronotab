@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{khronotab}
-  s.version = "1.3.0"
+  s.version = "1.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristofer M White"]
-  s.date = %q{2010-07-01}
+  s.date = %q{2010-07-07}
   s.description = %q{A pure ruby cron parser with a hash-like interface}
   s.email = %q{me@kmwhite.net}
   s.extra_rdoc_files = [
