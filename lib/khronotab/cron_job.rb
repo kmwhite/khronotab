@@ -39,15 +39,14 @@ class CronJob
     raise 'Unknown key!'
   end
 
-  def expand_times(type=:day)
+  def expand_times(date = Date.today, type = :day)
     case type
     when :day 
-      d=Date.today
-      return [] unless runs_today?
+      return [] unless runs_on?(date)
       time_list = []
       hours.expanded_form.map do |hour|
         minutes.expanded_form.map do |minute|
-          time_list << "%02i-%02i-%02i %02i:%02i:%02i" % [d.year, d.month, d.day, hour, minute, 0]
+          time_list << "%02i-%02i-%02i %02i:%02i:%02i" % [date.year, date.month, date.day, hour, minute, 0]
         end
       end
       return time_list
