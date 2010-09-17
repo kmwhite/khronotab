@@ -4,10 +4,6 @@ KhronoTab is a pure ruby interface to the crontab. It uses a hash
 interface to allow accessing the data of an existing crontab or the
 creation of a new one far easier.
 
-== Synopsis 
-  This is a sample description of the application.
-  Blah blah blah.
-
 == Installation
   gem install khronotab
 
@@ -21,8 +17,8 @@ creation of a new one far easier.
 
 == Copyright
   Copyright (c) 2010 Kristofer M White. Licensed under the BSD License:
+  See LICENSE for details.
   http://www.opensource.org/licenses/bsd-license.html
-
 
 == Note on Patches/Pull Requests
  
@@ -31,6 +27,5 @@ creation of a new one far easier.
 * Add tests for it. This is important so I don't break it in a
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
