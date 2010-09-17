@@ -12,6 +12,9 @@ module Khronotab
     attr_accessor :jobs, :variables, :comments
 
     def initialize(opt={})
+      @variables ||= []
+      @jobs ||= []
+      @comments ||= []
       self.read_from_file(opt[:file]) if opt[:file] 
     end
 
@@ -20,23 +23,20 @@ module Khronotab
     end
 
     def read_from_file(filename)
-      @variables ||= []
-      @jobs ||= []
-      @comments ||= []
       File.open(filename, 'r').readlines.each do |line|
         if CronVariable.matches?(line)
-          @variables << CronVariable.add_new(line) 
+          @variables << CronVariable.add_new(line)
         elsif CronJob.matches?(line)
           @jobs << CronJob.add_new(line)
         elsif CronComment.matches?(line)
           @comments << line
         else
-          STDERR.puts("Warning: Line is not valid!") unless
+          STDERR.puts("Warning: Line is not valid!(#{line.chomp})") unless
             line =~ /^[\s]*$/
         end
       end
     self
-    end
+    end 
 
     def write_to_file(filename)
       #TODO: Have this validate a file or append to the file if there
