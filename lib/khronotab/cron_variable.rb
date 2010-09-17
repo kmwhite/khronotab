@@ -4,19 +4,18 @@ class CronVariable < Hash
 
   VAR_REGEX=%r{(^\s*[^#]\w+)=(.+)}i
 
-  def [] ac
+  def [](ac)
     return self.send(ac) if self.respond_to?(ac)
     raise 'Unknown key!'
   end
 
-  def []= k,v
-    return self.send("#{k}=",v) if self.respond_to?(k)
+  def []=(key,value)
+    return self.send("#{key}=", value) if self.respond_to?(key)
     raise 'Unknown key!'
   end
 
-  def self.matches?(ce)
-    return false if ce=~/^[\s]*$/ or ce=~/^\s*#/
-    !!VAR_REGEX.match(ce)
+  def self.matches?(cron_entry)
+    !!VAR_REGEX.match(cron_entry)
   end
 
   def self.add_new(cron_entry)

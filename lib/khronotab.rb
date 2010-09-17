@@ -4,13 +4,14 @@ module Khronotab
   class CronTab
 
     require 'khronotab/cron_variable'
+    require 'khronotab/cron_comment'
     require 'khronotab/cron_job'
 
     VERSION = '1.3.2'
 
-    attr_accessor :jobs, :variables
+    attr_accessor :jobs, :variables, :comments
 
-    def initialize opt={}
+    def initialize(opt={})
       self.read_from_file(opt[:file]) if opt[:file] 
     end
 
@@ -21,16 +22,20 @@ module Khronotab
     def read_from_file(filename)
       @variables ||= []
       @jobs ||= []
-        File.open(filename, 'r').readlines.each do |line|
-          if CronVariable.matches?(line)
-            @variables << CronVariable.add_new(line) 
-          elsif CronJob.matches?(line)
-            @jobs << CronJob.add_new(line)
-          else
-            STDERR.puts("Warning: Line is not a valid variable or job!")
-          end
+      @comments ||= []
+      File.open(filename, 'r').readlines.each do |line|
+        if CronVariable.matches?(line)
+          @variables << CronVariable.add_new(line) 
+        elsif CronJob.matches?(line)
+          @jobs << CronJob.add_new(line)
+        elsif CronComment.matches?(line)
+          @comments << line
+        else
+          STDERR.puts("Warning: Line is not valid!") unless
+            line =~ /^[\s]*$/
         end
-      self
+      end
+    self
     end
 
     def write_to_file(filename)
