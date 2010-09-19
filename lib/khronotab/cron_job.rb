@@ -49,7 +49,7 @@ class CronJob
     return time_list
   end
 
-  def initialize(data)
+  def initialize(data = {})
     @minutes = CronUnit.new(data[:minutes], 0, 59)
     @hours = CronUnit.new(data[:hours], 0, 23)
     @days_of_month = CronUnit.new(data[:days_of_month], 1, 31)
