@@ -31,8 +31,7 @@ module Khronotab
         elsif CronComment.matches?(line)
           @comments << line
         else
-          STDERR.puts("Warning: Line is not valid!(#{line.chomp})") unless
-            line =~ /^[\s]*$/
+          STDERR.puts("Warning: Line is not valid!(#{line.chomp})")
         end
       end
     self
