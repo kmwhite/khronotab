@@ -40,7 +40,7 @@ class CronUnit
         when /-/ #range
           values.concat(expand_range(segment))
         when /\// #interval
-          values.concat(expand_inteval(segment))
+          values.concat(expand_interval(segment))
         when /[*]/
           values.concat((@minimum .. @maximum).to_a)
         else
