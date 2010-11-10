@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "khronotab"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{A pure ruby crontab parser with a Hash-like interface}
     gem.description = %Q{A pure ruby crontab parser with a Hash-like interface}
     gem.email = "me@kmwhite.net"
     gem.homepage = "http://github.com/kmwhite/khronotab"
