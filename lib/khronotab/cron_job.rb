@@ -14,6 +14,11 @@ class CronJob
   end
     
   def self.add_new(cron_entry)
+    STDERR.puts("DEPRECATION WARNING: add_new is deprecated. See CronJob.add_new")
+    self.parse_new(cron_entry)
+  end
+
+  def self.parse_new(cron_entry)
     return nil unless JOB_REGEX.match(cron_entry)
     minute, hour, dom, month, dow, user, command =
          cron_entry.scan(JOB_REGEX).shift
