@@ -16,7 +16,7 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "khronotab"
   gem.homepage = "http://khronotab.kmwhite.net/"
-  gem.license = "MIT"
+  gem.license = "BSD"
   gem.summary = %Q{A pure ruby interface to the crontab}
   gem.description = %Q{A pure ruby interface to the crontab}
   gem.email = "me@kmwhite.net"
