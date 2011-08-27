@@ -1,17 +1,30 @@
-class CronComment < String
+module Khronotab
+  class CronComment
 
-  COMMENT_REGEX=%r{\s*#.*}i
+    class InvalidComment < Exception; end
 
-  def self.matches?(cron_entry)
-    !!COMMENT_REGEX.match(cron_entry)
+    attr_reader :comment
+
+    def self.matches?(cron_entry)
+      !!(%r{\s*#.*}.match(cron_entry) || %r{^\W+$}.match(cron_entry))
+    end
+
+    def self.parse_new(comment = nil)
+      CronComment.new(comment)
+    end
+
+    def initialize(comment = nil)
+      fail(InvalidComment) if comment.nil?
+      @comment = comment
+    end
+
+    def to_s
+      @comment
+    end
+
+    def to_line
+      self.to_s
+    end
+
   end
-
-  def to_s
-    puts self
-  end
-
-  def to_line
-    puts self
-  end
-
 end
