@@ -27,13 +27,27 @@ Jeweler::RubygemsDotOrgTasks.new
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec) do |spec|
-  spec.pattern = FileList['spec/**/*_spec.rb']
-end
+require 'khronotab'
+namespace :rspec do
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
+  desc 'Run Tests'
+  RSpec::Core::RakeTask.new(:spec) do |spec|
+    spec.pattern = FileList['spec/**/*_spec.rb']
+  end
+
+  desc 'Run Tests in Tree View'
+  RSpec::Core::RakeTask.new(:tree) do |spec|
+    spec.pattern = 'spec/**/*_spec.rb'
+    spec.rspec_opts = %w{-fd}
+  end
+
+  desc 'Generate Test Coverage Report'
+  RSpec::Core::RakeTask.new(:rcov) do |spec|
+    spec.pattern = 'spec/**/*_spec.rb'
+    spec.rcov_opts = %w{--exclude gems\/,spec\/}
+    spec.rcov = true
+  end
+
 end
 
 require 'reek/rake/task'
