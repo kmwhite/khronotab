@@ -6,7 +6,7 @@ module Khronotab
     attr_reader :comment
 
     def self.matches?(cron_entry)
-      !!(%r{\s*#.*}.match(cron_entry) || %r{^\W+$}.match(cron_entry))
+      !!(%r{\s*#.*}.match(cron_entry) || %r{^\W*$}.match(cron_entry))
     end
 
     def self.parse_new(comment = nil)

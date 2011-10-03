@@ -15,19 +15,16 @@ module Khronotab
     end
 
     def read_from_file(filename)
-      @lines = File.open(filename,'r').readlines.map.with_index do |line,index|
-        { :index => index, :content => parse_line(line) }
+      File.open(filename,'r').readlines.each_with_index do |line,index|
+        @lines << { :index => index, :content => determine_line_type(line).parse_new(line) }
       end
       self
     end 
 
-    # TODO: Have this validate a file or append to the file if there
-    # is new data. Just overwriting the damn thing isn't very
-    # safe or wise.. -kmwhite 2010.04.19
     def write_to_file(filename)
       File.open(filename,'w') do |crontab|
-        @lines.sort_by {|line| line[:index] }.each do |line|
-          crontab.puts(line[:data].to_line)
+        @lines.sort_by {|l| l[:index] }.each do |line|
+          crontab.puts(line[:content].to_line)
         end
       end
     end
@@ -42,11 +39,6 @@ module Khronotab
 
     def variables
       @lines.select { |line| line[:content].is_a?(CronVariable) }
-    end
-
-    def parse_line(line)
-      line_type = determine_line_type(line)
-      line_type.parse_new(line)
     end
 
     def determine_line_type(line)
