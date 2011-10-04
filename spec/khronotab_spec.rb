@@ -106,7 +106,7 @@ describe Khronotab::CronTab do
   describe 'when read from a file' do
 
     before do
-      fname = File.expand_path(File.dirname(__FILE__) + '/../sample/crontab')
+      fname = File.expand_path(File.dirname(__FILE__) + '/sample/crontab')
       @crontab = Khronotab::CronTab.read_from_file(fname)
     end
 
@@ -119,7 +119,7 @@ describe Khronotab::CronTab do
   describe 'when written to a file' do
 
     before do
-      @old_file = File.expand_path(File.dirname(__FILE__) + '/../sample/crontab')
+      @old_file = File.expand_path(File.dirname(__FILE__) + '/sample/crontab')
       @new_file = Tempfile.new('khronotab')
       @crontab  = Khronotab::CronTab.read_from_file(@old_file)
     end
@@ -193,7 +193,7 @@ describe Khronotab::CronVariable do
       end
 
       it 'should become a string' do
-        @variable.to_s.should == '< Khronotab::CronVariable name: foo, value: \'bar\' >'
+        @variable.to_s.should == '< CronVariable name: foo, value: \'bar\' >'
       end
 
     end
