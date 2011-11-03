@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'timecop'
 require 'tempfile'
 
 describe Khronotab::CronComment do
@@ -72,9 +73,58 @@ describe Khronotab::CronComment do
 end
 
 describe Khronotab::CronJob do
-  before do
-    @cronjob = Khronotab::CronJob.new
+
+  describe 'when created new' do
+
+    before do
+      @cronjob = Khronotab::CronJob.new
+    end
+
+    it 'should have empty units' do
+      @cronjob.minutes.cron_form.should be_nil
+      @cronjob.hours.cron_form.should be_nil
+      @cronjob.days_of_month.cron_form.should be_nil
+      @cronjob.month.cron_form.should be_nil
+      @cronjob.days_of_week.cron_form.should be_nil
+      @cronjob.user.should be_nil
+      @cronjob.command.should be_nil
+    end
+
+    it 'should return nil if invalid data' do
+      Khronotab::CronJob.parse_new('lkajdlkaj').should be_nil
+    end
+
   end
+
+  describe 'when created from data' do
+
+    before do
+      @year = Date.today.year
+      @month = Date.today.month
+      @cronjob = Khronotab::CronJob.parse_new("* * 15 #{@month} * root ls /")
+    end
+
+    it 'should have valid attributes' do
+
+    end
+
+    it 'should determine if it should run today' do
+      Timecop.freeze(@year, @month, 14) do
+        @cronjob.runs_today?.should be_false
+      end
+      Timecop.freeze(@year, @month, 15) do
+        @cronjob.runs_today?.should be_true
+      end
+    end
+
+    it 'should expand times' do
+      Timecop.freeze(@year, @month, 30) do
+        @cronjob.expand_times.should == []
+      end
+    end
+
+  end
+
 end
 
 describe Khronotab::CronTab do

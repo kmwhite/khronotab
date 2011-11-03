@@ -29,6 +29,7 @@ GEM
     ruby_parser (2.1.0)
       sexp_processor (~> 3.0)
     sexp_processor (3.0.6)
+    timecop (0.3.5)
 
 PLATFORMS
   ruby
@@ -40,3 +41,4 @@ DEPENDENCIES
   reek (~> 1.2.8)
   roodi (~> 2.1.0)
   rspec (~> 2.3.0)
+  timecop (~> 0.3.5)
