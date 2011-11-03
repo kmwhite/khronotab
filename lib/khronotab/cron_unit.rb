@@ -34,7 +34,7 @@ module Khronotab
     end
 
     def expanded_form
-      @cron_form.split(',').flat_map { |segment|
+      @cron_form.split(',').map { |segment|
         case segment
           when /-/ #range
             expand_range(segment)
@@ -44,7 +44,7 @@ module Khronotab
             (@minimum .. @maximum).to_a
           else
             segment.to_i
-        end }.sort.uniq
+        end }.flatten.sort.uniq
     end
 
     def to_s
